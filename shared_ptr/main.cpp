@@ -41,25 +41,25 @@ int main()
     // set type
     derived.SetType(5);
 
-    std::cout << derived.GetType() << std::endl;
+    std::cout << derived.GetType() << std::endl;  // 5
 
     // make shared_ptr for Derived class
     std::shared_ptr<Derived> derived_ptr = std::make_shared<Derived>(derived);
 
     // cout use count
-    std::cout << "use count: " << derived_ptr.use_count() << std::endl;
+    std::cout << "use count: " << derived_ptr.use_count() << std::endl;  // 1
 
     // get Base shared_ptr by static_pointer_cast
     std::shared_ptr<Base> base_ptr = std::static_pointer_cast<Base>(derived_ptr);
 
-    std::cout << base_ptr->GetType() << std::endl;
-    std::cout << "use count: " << derived_ptr.use_count() << std::endl;
-    std::cout << "use count: " << base_ptr.use_count() << std::endl;
+    std::cout << base_ptr->GetType() << std::endl;                       // 5
+    std::cout << "use count: " << derived_ptr.use_count() << std::endl;  // 2
+    std::cout << "use count: " << base_ptr.use_count() << std::endl;     // 2
 
     // make Base shared_ptr directly
     std::shared_ptr<Base> base_ptr_2 = std::make_shared<Derived>(derived);
 
-    std::cout << base_ptr_2->GetType() << std::endl;
-    std::cout << base_ptr_2.use_count() << std::endl;
+    std::cout << base_ptr_2->GetType() << std::endl;                    // 5
+    std::cout << "use count: " << base_ptr_2.use_count() << std::endl;  // 1
     return 0;
 }
